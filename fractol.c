@@ -6,26 +6,14 @@
 /*   By: aniouar <aniouar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 12:21:25 by aniouar           #+#    #+#             */
-/*   Updated: 2022/07/30 13:37:10 by aniouar          ###   ########.fr       */
+/*   Updated: 2022/07/30 19:42:58 by aniouar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "fractol.h"
 
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-	int value;
-	int iteration;
-	int low;
-	double ca;
-	double cb;
-	double xx;
-	double yy;
-	t_data *img;
-}				t_vars;
-
+/*
 int	mh(int keycode, t_vars *vars)
 {
 	// 69 +
@@ -45,10 +33,21 @@ int	mh(int keycode, t_vars *vars)
 		mlx_put_image_to_window(vars->mlx,vars->win, vars->img->img, 0, 0);
 	return (0);
 }
+*/
+
+void set_mlx(t_mwi **m,t_fractol *f)
+{
+	
+	(*m)->mlx = mlx_init();
+	(*m)->win = mlx_new_window((*m)->mlx, f->win_x, f->win_y, "fract-ol");
+	(*m)->img.img =  mlx_new_image((*m)->mlx, 1920, 1080);
+	(*m)->img.addr =  mlx_get_data_addr(&(*m)->img, &(*m)->img.bits_per_pixel, &(*m)->img.line_length,
+								&(*m)->img.endian);
+}
 
 int	main(int ac,char **av)
 {
-
+	/*
 	t_vars	vars;
 	t_data	img;
 	double **jls;
@@ -59,7 +58,7 @@ int	main(int ac,char **av)
 
 	value = 1;
 
-	(void)ac;
+	
 
 
 	x =  -2;
@@ -106,5 +105,38 @@ int	main(int ac,char **av)
 	
 
 	
-	mlx_loop(vars.mlx);
+	
+	*/
+
+	
+	t_fractol *fract;
+	t_fractol *chosen;
+	t_mwi *m;
+	t_data img;
+	int index;
+
+
+	
+	if(ac ==  2)
+	{
+		index = ft_atoi(av[1]);
+		fract = set_multiple_fractol(8);
+		chosen = choose_fractol(fract,index);
+		if(chosen == 0)
+			printf("not found\n");
+		else
+		{
+			
+			m = malloc(sizeof(t_mwi));
+			img.img = mlx_new_image(m->mlx, chosen->win_x, chosen->win_y);
+			img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+			set_mlx(&m,chosen);
+			printf("test\n");
+		     //fractol(chosen,m);
+			  my_mlx_pixel_put(&img,5,5,BLUE);
+			 mlx_put_image_to_window(m->mlx,m->win, img.img, 0, 0);
+			mlx_loop(m->mlx);
+		}
+	}
+
 }

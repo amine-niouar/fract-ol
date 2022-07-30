@@ -6,7 +6,7 @@
 /*   By: aniouar <aniouar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 12:41:55 by aniouar           #+#    #+#             */
-/*   Updated: 2022/07/30 12:55:15 by aniouar          ###   ########.fr       */
+/*   Updated: 2022/07/30 16:27:24 by aniouar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ double map(double n,double start1,double stop1,double start2,double stop2)
 {
     return ((n - start1) / (stop1 - start1) * (stop2 - start2) + start2);
 }
+
 
 int    get_color(int it,int low)
 {
