@@ -6,17 +6,16 @@
 #    By: aniouar <aniouar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/04 15:28:36 by aniouar           #+#    #+#              #
-#    Updated: 2022/07/27 11:29:32 by aniouar          ###   ########.fr        #
+#    Updated: 2022/07/28 10:07:55 by aniouar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-SRC = fractol.c draw.c square.c circle.c math.c complex.c julia.c common.c
+SRC = julia_func.c  fractol.c draw.c  complex.c julia.c common.c libft.c
 NAME = fractol
 OBJS =  $(SRC:.c=.o)
 CC = gcc
-CFLAGS = 
-
+CFLAGS = -Werror -Wall -Wextra 
 all : $(NAME)
 
 $(NAME): $(OBJS)

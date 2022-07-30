@@ -6,7 +6,7 @@
 /*   By: aniouar <aniouar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:13:20 by aniouar           #+#    #+#             */
-/*   Updated: 2022/07/27 13:11:40 by aniouar          ###   ########.fr       */
+/*   Updated: 2022/07/30 13:21:42 by aniouar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 //(n - start1) / (stop1 - start1) * (stop2 - start2) + start2
 
-void complex(t_data *img,int x_win,int y_win,double xz,double yz)
+void complex(t_data *img,int x_win,int y_win,double xz,double yz,int iteration,int low)
 {
     int x;
     double a;
@@ -25,26 +25,25 @@ void complex(t_data *img,int x_win,int y_win,double xz,double yz)
     double z;
     double aa;
     double bb;
-    double ab_two;
-    int bright;
-    int color;
     int n;
     int y;
+    int color;
 
 
+    
     x = 0;
     while(x < x_win)
     {
         y = 0;
         while (y < y_win)
         {
-            a = map((double)x,200,x_win,-.5,.5);
-            b = map((double)y,0,y_win,-.5,.5);
+            a = map((double)x,0,x_win,xz,yz);
+            b = map((double)y,0,y_win,xz,yz);
             ca = a;
             cb = b;
             z = 0;
             n = 0;
-            while(n < 100)
+            while(n < iteration)
             {
                 aa = pow(a,2) - pow(b,2);
                 bb = 2 * a * b;
@@ -52,19 +51,13 @@ void complex(t_data *img,int x_win,int y_win,double xz,double yz)
                 a = aa + ca;
                 b = bb + cb;
                 // Programe it better
-                if(fabs(aa + bb) > 50)
+                if(fabs(aa + bb) > low)
                     break;
                 n++;
             }
-           if(n == 100)
-            {
-                 my_mlx_pixel_put(img,x,y,0);
-            }
-
-            else if(n >= 16 && n < 100)
-                 my_mlx_pixel_put(img,x,y,WHITE);
-            else    
-                 my_mlx_pixel_put(img,x,y,MAD);
+            
+               color = get_color(n,low);
+                my_mlx_pixel_put(img,x,y,color);
 
             y++;
         }

@@ -6,7 +6,7 @@
 /*   By: aniouar <aniouar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 12:41:55 by aniouar           #+#    #+#             */
-/*   Updated: 2022/07/21 12:42:20 by aniouar          ###   ########.fr       */
+/*   Updated: 2022/07/30 12:55:15 by aniouar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,20 @@ double map(double n,double start1,double stop1,double start2,double stop2)
     return ((n - start1) / (stop1 - start1) * (stop2 - start2) + start2);
 }
 
-
-
-
-int	create_trgb(int t, int r, int g, int b)
+int    get_color(int it,int low)
 {
-	return (r << 16 | g << 8 | b);
+    uint8_t    rgb[3];
+    double    div;
+
+    div = (double)it / (double)low;
+    rgb[0] = 9 * (1 - div) * pow(div, 3) * 255;
+    rgb[1] = 15 * pow((1 - div), 2) * pow(div, 2) * 255;
+    rgb[2] = 9 * pow((1 - div), 3) * div * 255;
+    return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 }
+
+
+
+
+
+
